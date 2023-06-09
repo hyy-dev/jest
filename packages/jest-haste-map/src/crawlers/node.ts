@@ -158,6 +158,11 @@ function findNative(
     args.push(')');
   }
 
+  // 支持跟踪链接
+  if (enableSymlinks) {
+    args.unshift('-L');
+  }
+
   const child = spawn('find', args);
   let stdout = '';
   if (child.stdout === null) {
