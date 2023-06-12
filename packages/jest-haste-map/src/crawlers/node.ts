@@ -140,6 +140,7 @@ function findNative(
   const args = Array.from(roots);
   if (enableSymlinks) {
     args.push('(', '-type', 'f', '-o', '-type', 'l', ')');
+    args.unshift('-L');
   } else {
     args.push('-type', 'f');
   }
@@ -156,11 +157,6 @@ function findNative(
   });
   if (extensions.length) {
     args.push(')');
-  }
-
-  // 支持跟踪链接
-  if (enableSymlinks) {
-    args.unshift('-L');
   }
 
   const child = spawn('find', args);
